@@ -1,3 +1,5 @@
+# Problem: https://adventofcode.com/2024/day/1
+
 from collections import Counter
 
 left_location_ids = []
