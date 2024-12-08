@@ -1,3 +1,5 @@
+# Problem: https://adventofcode.com/2024/day/4
+
 word_search = open("input.txt", "r").readlines()
 word_search = [word.strip() for word in word_search]
 

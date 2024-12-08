@@ -1,3 +1,5 @@
+# Problem: https://adventofcode.com/2024/day/6
+
 map = open("input.txt", "r").readlines()
 map = [list(row.strip()) for row in map]
 
