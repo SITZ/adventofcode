@@ -1,4 +1,5 @@
 # Problem: https://adventofcode.com/2024/day/15
+from copy import deepcopy
 
 lines = [line.strip() for line in open("input.txt", "r").readlines()]
 
@@ -8,7 +9,7 @@ def print_warehouse(warehouse):
 
 
 original_warehouse = [list(line) for line in lines[:lines.index('')]]
-print_warehouse(original_warehouse)
+print(original_warehouse)
 
 moves = ''.join(lines[lines.index(''):])
 print(moves)
@@ -16,8 +17,8 @@ print(moves)
 
 def total_gps_sum(warehouse, box):
     gps_sum = 0
-    for i in range(1, len(warehouse) - 1):
-        for j in range(1, len(warehouse[i]) - 1):
+    for i in range(0, len(warehouse) - 1):
+        for j in range(0, len(warehouse[i]) - 1):
             if warehouse[i][j] == box:
                 gps_sum += 100 * i + j
 
@@ -28,7 +29,6 @@ def get_robot_position(warehouse):
     for i in range(len(warehouse)):
         for j in range(len(warehouse[i])):
             if warehouse[i][j] == '@':
-                print('robot_position', i, j)
                 return i, j
 
 
@@ -61,7 +61,7 @@ def part_1(warehouse):
                         break
 
             case 'v':
-                for i in range(robot_i + 1, max_i - 1, +1):
+                for i in range(robot_i + 1, max_i, +1):
                     if warehouse[i][robot_j] == '#':
                         break
                     if warehouse[i][robot_j] == '.':
@@ -82,12 +82,12 @@ def part_1(warehouse):
                         robot_i -= 1
                         break
 
-        print(move, warehouse)
+        # print(move, warehouse)
 
     return warehouse
 
 
-# print('total_gps_sum_part1', total_gps_sum(part_1(original_warehouse), 'O'))
+print('total_gps_sum_part1', total_gps_sum(part_1(deepcopy(original_warehouse)), 'O'))
 
 
 def scale_warehouse(warehouse):
@@ -105,7 +105,7 @@ def scale_warehouse(warehouse):
                 case '@':
                     row += ['@', '.']
         scaled_warehouse.append(row)
-    print_warehouse(warehouse)
+    # print_warehouse(scaled_warehouse)
     return scaled_warehouse
 
 
@@ -147,12 +147,12 @@ def part_2(warehouse):
                             level_has_wall = True
                             break
 
-                        levels[i].add(j)
                         if warehouse[i][j] == '[':
                             levels[i].update({j, j + 1})
+                            level_has_box = True
                         elif warehouse[i][j] == ']':
                             levels[i].update({j, j - 1})
-                        level_has_box = warehouse[i][j] in '[]'
+                            level_has_box = True
 
                     if level_has_wall:
                         break
@@ -181,12 +181,12 @@ def part_2(warehouse):
                             level_has_wall = True
                             break
 
-                        levels[i].add(j)
                         if warehouse[i][j] == '[':
                             levels[i].update({j, j + 1})
+                            level_has_box = True
                         elif warehouse[i][j] == ']':
                             levels[i].update({j, j - 1})
-                        level_has_box = warehouse[i][j] in '[]'
+                            level_has_box = True
 
                     if level_has_wall:
                         break
@@ -201,10 +201,10 @@ def part_2(warehouse):
                         robot_i -= 1
                         break
 
-        print(move)
-        print_warehouse(warehouse)
+        # print(move)
+        # print_warehouse(warehouse)
 
     return warehouse
 
 
-print('total_gps_sum_part2', total_gps_sum(part_2(scale_warehouse(original_warehouse)), '['))
+print('total_gps_sum_part2', total_gps_sum(part_2(scale_warehouse(deepcopy(original_warehouse))), '['))
