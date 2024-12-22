@@ -1,3 +1,5 @@
+# Problem: https://adventofcode.com/2024/day/21
+
 import sys
 from collections import deque
 from functools import cache
